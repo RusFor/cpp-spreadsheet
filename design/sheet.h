@@ -7,6 +7,7 @@
 
 class Sheet : public SheetInterface {
 public:
+
     ~Sheet();
 
     void SetCell(Position pos, std::string text) override;
@@ -21,14 +22,23 @@ public:
     void PrintValues(std::ostream& output) const override;
     void PrintTexts(std::ostream& output) const override;
 
-    const Cell* GetConcreteCell(Position pos) const;
-    Cell* GetConcreteCell(Position pos);
-
 private:
-    void MaybeIncreaseSizeToIncludePosition(Position pos);
-    void PrintCells(std::ostream& output,
-                    const std::function<void(const CellInterface&)>& printCell) const;
-    Size GetActualSize() const;
+    std::vector<std::vector<std::unique_ptr<Cell>>> data_;
+    std::vector<uint32_t> cells_count_by_row_;
+    std::vector<uint32_t> cells_count_by_col_;
+	
+    void IncreaseSize(Size pos);
 
-    std::vector<std::vector<std::unique_ptr<Cell>>> cells_;
+    void IncrementCellsCount(Size pos);
+    void DecrementCellsCount(Size pos);
+
+    void FittCellsCount();
+
+    Size ValidatePosition(Position pos) const;
+
+    void PrintData(std::ostream& output, bool as_text) const;
+    //+
+    void ChekCycle(Position pos, std::string text) const;
 };
+
+std::ostream& operator<<(std::ostream& output, CellInterface::Value value);

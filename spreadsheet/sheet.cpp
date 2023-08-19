@@ -161,7 +161,7 @@ void Sheet::PrintData(std::ostream& output, bool as_text) const
 	}
 }
 
-void Sheet::CheckCycle(const Position& pos, std::string text)
+void Sheet::CheckCycle(const Position& pos, const std::string& text)
 {
 	Cell temp_cell(*this);
 	try {

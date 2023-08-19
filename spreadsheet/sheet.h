@@ -43,7 +43,7 @@ private:
 	// Изначально в таблице нет циклических зависимостей,
 	// поэтому достаточно проверить, что в новой формуле нет зависимостей от новой
 	// ячейки(pos)
-	void CheckCycle(const Position& pos, std::string text);
+	void CheckCycle(const Position& pos, const std::string& text);
 	void CheckCycleInner(const Position& pos, CellsOrder& cells, CellsOrder& cheked_cells);
 };
 

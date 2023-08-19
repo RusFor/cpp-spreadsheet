@@ -1,27 +1,23 @@
-#include "cell.h"
+#include "cell.h" 
 
-#include <cassert>
-#include <iostream>
-#include <memory>
-#include <optional>
-#include <regex>
-#include <string>
+#include <cassert> 
+#include <iostream> 
+#include <memory> 
+#include <optional> 
+#include <regex> 
+#include <string> 
 
 void Cell::Set(Position pos, std::string text) {
 	InvalidateCache(pos);
 	if (text.size() == 0) {
-		impl_.reset(new EmptyImpl());
+		impl_ = std::make_unique<EmptyImpl>();
 	}
 	else if (text.size() > 1 && text.front() == FORMULA_SIGN) {
-		// 1. Saves a copy of the current pointer old_ptr = current_ptr.
-		// 2. Overwrites the current pointer with the argument current_ptr = ptr.
-		// 3. If the old pointer was non - empty, deletes the previously managed
-		// object if (old_ptr) get_deleter()(old_ptr).
-		impl_.reset(new FormulaImpl{ sheet_, std::string(text.begin() + 1, text.end()) });
+		impl_ = std::make_unique<FormulaImpl>( sheet_, std::string(text.begin() + 1, text.end()) );
 		SetDependencies(pos);
 	}
 	else {
-		impl_.reset(new TextImpl{ text });
+		impl_ = std::make_unique<TextImpl>( text );
 	}
 }
 

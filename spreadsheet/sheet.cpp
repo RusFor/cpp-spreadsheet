@@ -20,10 +20,11 @@ void Sheet::SetCell(Position pos, std::string text)
 	IncreaseSize(s_pos); // увиличиваем размер и размер печатной области если больше
 	IncrementCellsCount(s_pos); // если ячейка пуста то увеличиваем на 1 поле по
 	// индексу в cells_count_by_[]
-	if (data_.at(pos.row).at(pos.col).get() == nullptr) {
-		data_.at(pos.row).at(pos.col).reset(new Cell(*this));
+	auto& cell{ data_.at(pos.row).at(pos.col) };
+	if (cell.get() == nullptr) {
+		cell= std::make_unique<Cell>(*this);
 	}
-	data_.at(pos.row).at(pos.col)->Set(pos, text);
+	cell->Set(pos, text);
 }
 
 const CellInterface* Sheet::GetCell(Position pos) const
@@ -76,8 +77,7 @@ CellInterface* Sheet::GetCellCommon(Position pos) const
 	ValidatePosition(pos); // делаем проверку (выбрасывает исключение)
 	Size s_pos{ static_cast<size_t>(pos.row), static_cast<size_t>(pos.col) };
 	if (data_.size() > s_pos.rows && data_.at(s_pos.rows).size() > s_pos.cols) {
-		auto& cell_ptr{ data_.at(s_pos.rows).at(s_pos.cols) };
-		return cell_ptr.get();
+		return data_.at(s_pos.rows).at(s_pos.cols).get();
 	}
 	return nullptr;
 }

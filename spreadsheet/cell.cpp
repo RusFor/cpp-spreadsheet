@@ -7,17 +7,12 @@
 #include <regex>
 #include <string>
 
-// Реализуйте следующие методы
-// Cell::Cell() {}
-
-// Cell::~Cell() {}
-
 void Cell::Set(Position pos, std::string text) {
 	InvalidateCache(pos);
 	if (text.size() == 0) {
 		impl_.reset(new EmptyImpl());
 	}
-	else if (text.size() > 1 && text.front() == '=') {
+	else if (text.size() > 1 && text.front() == FORMULA_SIGN) {
 		// 1. Saves a copy of the current pointer old_ptr = current_ptr.
 		// 2. Overwrites the current pointer with the argument current_ptr = ptr.
 		// 3. If the old pointer was non - empty, deletes the previously managed

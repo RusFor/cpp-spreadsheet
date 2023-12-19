@@ -1,7 +1,7 @@
 # cpp-spreadsheet
 
 
-<br />
+SIMPLE TABLES WITH FORMULAS WITHOUT GUI<br />
 
 git clone https://github.com/RusFor/cpp-spreadsheet.git<br />
 cd cpp-spreadsheet/spreadsheet<br />

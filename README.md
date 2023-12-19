@@ -1,7 +1,7 @@
 # cpp-spreadsheet
 
 
-Completed test task about a stock order book<br />
+<br />
 
 git clone https://github.com/RusFor/cpp-spreadsheet.git<br />
 cd cpp-spreadsheet/spreadsheet<br />
